@@ -91,6 +91,17 @@ unsigned char key0_read(void)
     }
 }
 
+unsigned char key1_read(void)
+{
+    if (HAL_GPIO_ReadPin(PWM_Key_GPIO_Port, PWM_Key_Pin) == GPIO_PIN_SET)
+    {
+        return KEY_READ_DOWN;
+    }
+    else
+    {
+        return KEY_READ_UP;
+    }
+}
 
 struct key_dev key_dev[] = {
     {
@@ -103,6 +114,17 @@ struct key_dev key_dev[] = {
      1000,
      (unsigned char (*)(void))key0_read,
     },
+    {
+     KEY_STATUS_DOWN_CHECK,
+     KEY1_NUM,
+     0,
+     2000,
+     20,
+     200,
+     300,
+     (unsigned char (*)(void))key1_read,
+    },
+    
     /*
             .
             .

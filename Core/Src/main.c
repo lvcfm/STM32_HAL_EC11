@@ -51,7 +51,7 @@
 int optionIndex = 0;           // 菜单索引
 int timeValues[3] = {0, 0, 0}; // 脉冲长度
 int count_num;
-int32_t test_num = 0; // 支持正负数�?�增�??????
+int32_t test_num = 0; // 支持正负数�?�增�???????
 uint8_t dir_flag = 2; /*  方向标志 0: 顺时 1: 逆时 2: 未动*/
 // uint8_t key_click_flag = 0; // EC11 中键
 
@@ -83,13 +83,13 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     if (a_value == SET && count == 1)
     {
       if (b_value == RESET && b_flag == 1)
-      { // 逆时针转�??
+      { // 逆时针转�???
         test_num--;
         timeValues[optionIndex] = timeValues[optionIndex] > 0 ? timeValues[optionIndex] - 1 : 0;
         dir_flag = 1;
       }
       if (b_value && b_flag == 0)
-      { // 顺时针转�??
+      { // 顺时针转�???
         test_num++;
         timeValues[optionIndex]++;
         dir_flag = 0;
@@ -98,14 +98,14 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     }
   }
 
-  /* EC11中键，按键中�???? */
+  /* EC11中键，按键中�????? */
   // if(GPIO_Pin == EC11_KEY_Pin)
   // {
   // key_click_flag = 1;
   // }
 }
 
-// 写入Flash的函�??
+// 写入Flash的函�???
 HAL_StatusTypeDef WriteToFlash(uint32_t Address, uint32_t Data)
 {
   HAL_FLASH_Unlock(); // 解锁Flash
@@ -113,7 +113,7 @@ HAL_StatusTypeDef WriteToFlash(uint32_t Address, uint32_t Data)
   FLASH_EraseInitTypeDef EraseInitStruct;
   EraseInitStruct.TypeErase = FLASH_TYPEERASE_PAGES;
   EraseInitStruct.PageAddress = Address;
-  EraseInitStruct.NbPages = 1;                     // 根据您的Flash页大小，这里假设�??1�??
+  EraseInitStruct.NbPages = 1;                     // 根据您的Flash页大小，这里假设�???1�???
   HAL_FLASHEx_Erase(&EraseInitStruct, &PageError); // 擦除页面
   if (PageError != 0xFFFFFFFF)
   {
@@ -125,10 +125,10 @@ HAL_StatusTypeDef WriteToFlash(uint32_t Address, uint32_t Data)
   return status;
 }
 
-// 从Flash读取数据的函�??
+// 从Flash读取数据的函�???
 uint32_t ReadFromFlash(uint32_t Address)
 {
-  return *(__IO uint32_t *)Address; // 直接从指定地�??读取数据
+  return *(__IO uint32_t *)Address; // 直接从指定地�???读取数据
 }
 
 /* USER CODE END PFP */
@@ -174,13 +174,11 @@ int main(void)
   /* USER CODE BEGIN 2 */
   // ######################################################################################################
   uint32_t Main_Fosc = HAL_RCC_GetSysClockFreq();
-  printf("Main_Fosc:%dHz \r\n", Main_Fosc);
+  printf("Main_Fosc:%luHz \r\n", Main_Fosc);
 
-  // "hello embedded!\n"
-  uint8_t *str = (uint8_t *)"串口通信测试�?? \n";
+  uint8_t *str = (uint8_t *)"串口通信测试\r\n";
   HAL_UART_STATUS = HAL_UART_Transmit(&huart1, str, strlen((char *)str), HAL_MAX_DELAY);
 
-  // 如果成功发�?�就执行下面的语�?????
   if (HAL_UART_STATUS == HAL_OK)
   {
     str = (uint8_t *)"success\r\n";
@@ -189,15 +187,15 @@ int main(void)
 
   // 从Flash读取变量
   uint32_t read_value = ReadFromFlash(FLASH_STORAGE_ADDRESS);
-  count_num = (int)read_value > 0 ? (int)read_value : 0; // 将读取的值转换回原来的类�??
+  count_num = (int)read_value > 0 ? (int)read_value : 0; // 将读取的值转换回原来的类�???
 
   HAL_GPIO_WritePin(PA_PWM_GPIO_Port, PA_PWM_Pin, GPIO_PIN_RESET);
 
   OLED_Init();  // OLED初始
   OLED_Clear(); // 清屏
-  // 正相显示6X8--�??12�??0�??  反相显示8X16--�??16�??1�??
+  // 正相显示6X8--�???12�???0�???  反相显示8X16--�???16�???1�???
 
-  // 显示汉字“脉冲一�??
+  // 显示汉字“脉冲一�???
   OLED_ShowCHinese(0, 0, 0, 0);
   OLED_ShowCHinese(16, 0, 1, 0);
   OLED_ShowCHinese(32, 0, 2, 0);
@@ -208,7 +206,7 @@ int main(void)
   OLED_ShowCHinese(32, 2, 5, 0);
   num_line(2, 0, 0);
   string_line(2);
-  // 显示汉字“脉冲二�??
+  // 显示汉字“脉冲二�???
   OLED_ShowCHinese(0, 4, 0, 0);
   OLED_ShowCHinese(16, 4, 1, 0);
   OLED_ShowCHinese(32, 4, 3, 0);
@@ -217,8 +215,8 @@ int main(void)
   // 显示汉字“计数�??
   OLED_ShowCHinese(0, 6, 6, 0);
   OLED_ShowCHinese(32, 6, 7, 0);
-  OLED_ShowNum(72, 6, count_num, 3, 16, 0);
-  OLED_ShowNum(88, 0, 1, 1, 12, 0);
+  OLED_ShowNum(56, 6, count_num, 3, 16, 0);
+  OLED_ShowNum(96, 0, 1, 1, 12, 0);
   //  #
   //  ######################################################################################################
 
@@ -260,34 +258,27 @@ int main(void)
 
       if (key_value == KEY0_UP_SHORT)
       { // 单击事件 切换索引
-        printf("\r\n单击\r\n");
+        printf("\r\nEC11单击\r\n");
         HAL_GPIO_TogglePin(PC_LED_GPIO_Port, PC_LED_Pin);
         optionIndex = (optionIndex + 1) % 3;
-        OLED_ShowNum(88, 0, optionIndex + 1, 1, 12, 0);
+        OLED_ShowNum(96, 0, optionIndex + 1, 1, 12, 0);
         // 实现单击KEY
         // test_num++;
       }
       else if (key_value == KEY0_UP_DOUBLE)
       { // 双击事件 切换索引
-        printf("\r\n双击\r\n");
+        printf("\r\nEC11双击\r\n");
         HAL_GPIO_TogglePin(PC_LED_GPIO_Port, PC_LED_Pin);
         timeValues[optionIndex] = 0;
-        printf("按键计数清零,项目�??%d val�??%d ms\r\n", optionIndex + 1, timeValues[optionIndex]);
+        printf("按键计数清零,项目�???%d val�???%d ms\r\n", optionIndex + 1, timeValues[optionIndex]);
         num_line(optionIndex * 2, 0, 0);
       }
       else if (key_value == KEY0_LONG)
       { // 长按事件 触发脉冲
-        printf("\r\n长按\r\n");
+        printf("\r\nEC11长按\r\n");
         // 实现长按KEY
         count_num++;
-        // 存储变量到Flash
-        if (WriteToFlash(FLASH_STORAGE_ADDRESS, (uint32_t)count_num) != HAL_OK)
-        {
-          // 处理错误
-          printf("\r\n写入数据失败\r\n");
-        }
-        OLED_ShowNum(56, 6, count_num, 3, 16, 0);
-        // 双脉�??
+        //  双脉�???
         if (timeValues[0] > 0 && timeValues[2] > 0)
         {
           HAL_GPIO_WritePin(PA_PWM_GPIO_Port, PA_PWM_Pin, GPIO_PIN_SET);
@@ -297,13 +288,74 @@ int main(void)
           HAL_GPIO_WritePin(PA_PWM_GPIO_Port, PA_PWM_Pin, GPIO_PIN_SET);
           HAL_Delay(timeValues[2]);
           HAL_GPIO_WritePin(PA_PWM_GPIO_Port, PA_PWM_Pin, GPIO_PIN_RESET);
+          // 存储变量到Flash
+          if (WriteToFlash(FLASH_STORAGE_ADDRESS, (uint32_t)count_num) != HAL_OK)
+          {
+            // 处理错误
+            printf("\r\n写入数据失败\r\n");
+          }
+          OLED_ShowNum(56, 6, count_num, 3, 16, 0);
         }
-        // 单脉�??
+        // 单脉�???
         else if (timeValues[0] > 0)
         {
           HAL_GPIO_WritePin(PA_PWM_GPIO_Port, PA_PWM_Pin, GPIO_PIN_SET);
           HAL_Delay(timeValues[0]);
           HAL_GPIO_WritePin(PA_PWM_GPIO_Port, PA_PWM_Pin, GPIO_PIN_RESET);
+          // 存储变量到Flash
+          if (WriteToFlash(FLASH_STORAGE_ADDRESS, (uint32_t)count_num) != HAL_OK)
+          {
+            // 处理错误
+            printf("\r\n写入数据失败\r\n");
+          }
+          OLED_ShowNum(56, 6, count_num, 3, 16, 0);
+        }
+      }
+      // 按钮二
+      if (key_value == KEY1_UP_SHORT)
+      { // 单击事件
+        printf("\r\n按钮单击\r\n");
+      }
+      else if (key_value == KEY1_UP_DOUBLE)
+      { // 双击事件
+        printf("\r\n按钮双击\r\n");
+      }
+      else if (key_value == KEY1_LONG)
+      { // 长按事件 触发脉冲
+        printf("\r\n按钮长按\r\n");
+        // 实现长按KEY
+        count_num++;
+        //  双脉�???
+        if (timeValues[0] > 0 && timeValues[2] > 0)
+        {
+          HAL_GPIO_WritePin(PA_PWM_GPIO_Port, PA_PWM_Pin, GPIO_PIN_SET);
+          HAL_Delay(timeValues[0]);
+          HAL_GPIO_WritePin(PA_PWM_GPIO_Port, PA_PWM_Pin, GPIO_PIN_RESET);
+          HAL_Delay(timeValues[1]);
+          HAL_GPIO_WritePin(PA_PWM_GPIO_Port, PA_PWM_Pin, GPIO_PIN_SET);
+          HAL_Delay(timeValues[2]);
+          HAL_GPIO_WritePin(PA_PWM_GPIO_Port, PA_PWM_Pin, GPIO_PIN_RESET);
+          // 存储变量到Flash
+          if (WriteToFlash(FLASH_STORAGE_ADDRESS, (uint32_t)count_num) != HAL_OK)
+          {
+            // 处理错误
+            printf("\r\n写入数据失败\r\n");
+          }
+          OLED_ShowNum(56, 6, count_num, 3, 16, 0);
+        }
+        // 单脉�???
+        else if (timeValues[0] > 0)
+        {
+          HAL_GPIO_WritePin(PA_PWM_GPIO_Port, PA_PWM_Pin, GPIO_PIN_SET);
+          HAL_Delay(timeValues[0]);
+          HAL_GPIO_WritePin(PA_PWM_GPIO_Port, PA_PWM_Pin, GPIO_PIN_RESET);
+          // 存储变量到Flash
+          if (WriteToFlash(FLASH_STORAGE_ADDRESS, (uint32_t)count_num) != HAL_OK)
+          {
+            // 处理错误
+            printf("\r\n写入数据失败\r\n");
+          }
+          OLED_ShowNum(56, 6, count_num, 3, 16, 0);
         }
       }
     }

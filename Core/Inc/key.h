@@ -31,6 +31,7 @@ extern "C" {
 *******************************************************************************/
 
 #define KEY0_NUM                           0x0001
+#define KEY1_NUM                           0x0002
 
 #define KEY0_DOWN               (KEY_EVENT_DOWN      | KEY0_NUM<<8)
 #define KEY0_UP_SHORT           (KEY_EVENT_UP_SHORT  | KEY0_NUM<<8)
@@ -40,7 +41,13 @@ extern "C" {
 #define KEY0_LONG               (KEY_EVENT_LONG      | KEY0_NUM<<8)
 #define KEY0_DOUBLE             (KEY_EVENT_DOUBLE    | KEY0_NUM<<8)
 
-
+#define KEY1_DOWN               (KEY_EVENT_DOWN      | KEY1_NUM<<8)
+#define KEY1_UP_SHORT           (KEY_EVENT_UP_SHORT  | KEY1_NUM<<8)
+#define KEY1_UP_LONG            (KEY_EVENT_UP_LONG   | KEY1_NUM<<8)
+#define KEY1_UP_DOUBLE          (KEY_EVENT_UP_DOUBLE | KEY1_NUM<<8)
+#define KEY1_SHORT              (KEY_EVENT_SHORT     | KEY1_NUM<<8)
+#define KEY1_LONG               (KEY_EVENT_LONG      | KEY1_NUM<<8) 
+#define KEY1_DOUBLE             (KEY_EVENT_DOUBLE    | KEY1_NUM<<8)
 
 /******************************************************************************
                            User Interface [END]
